@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="en" data-theme="dark"><head>
+    <meta charset="UTF-8">
+    <meta name="google-site-verification" content="92iyzYbkq5d8PQfDdMaVQFcFW-f2w6BpH7g5cXswd_s">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why I Mass-Migrated From Dagger to Koin — And Never Looked Back — Shubham Singh</title><title>Shubham Singh — SDE (Android) @ PhonePe | Android Developer &amp; Tech Blogger</title><title>Shubham Singh — SDE (Android) @ PhonePe | Android Developer &amp; Tech Blogger</title>
+    <meta name="description" content="Portfolio of Shubham Singh — SDE at PhonePe, ex-Glance (InMobi). Android Developer, Kotlin Enthusiast, Tech Blogger. Author of The Code Report newsletter with 4,300+ subscribers.">
+    <meta name="author" content="Shubham Singh">
+    <meta name="robots" content="index, follow">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+    <meta name="theme-color" content="#0f766e">
+    <meta name="keywords" content="Shubham Singh, Android Developer, PhonePe, Kotlin, Jetpack Compose, SDE, Software Engineer, Tech Blogger, The Code Report, Mobile Development">
+    <link rel="canonical" href="https://shubham-0707.github.io/">
+
+    <!-- Open Graph (for social sharing) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Shubham Singh — SDE (Android) @ PhonePe">
+    <meta property="og:description" content="Portfolio of Shubham Singh — SDE at PhonePe, ex-Glance (InMobi). Android Developer, Kotlin Enthusiast, Tech Blogger.">
+    <meta property="og:url" content="https://shubham-0707.github.io/">
+    <meta property="og:image" content="https://shubham-0707.github.io/favicon-512.png">
+    <meta property="og:site_name" content="Shubham Singh">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@shubham0707_11">
+    <meta name="twitter:creator" content="@shubham0707_11">
+    <meta name="twitter:title" content="Shubham Singh — SDE (Android) @ PhonePe">
+    <meta name="twitter:description" content="Portfolio of Shubham Singh — SDE at PhonePe, ex-Glance (InMobi). Android Developer, Kotlin Enthusiast, Tech Blogger.">
+    <meta name="twitter:image" content="https://shubham-0707.github.io/favicon-512.png">
+
+    <!-- Fonts -->
+    <link rel="preload" as="image" href="/img/profile-pic.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Shubham Singh",
+      "url": "https://shubham-0707.github.io",
+      "image": "https://shubham-0707.github.io/favicon-512.png",
+      "jobTitle": "Software Development Engineer (Android)",
+      "worksFor": { "@type": "Organization", "name": "PhonePe" },
+      "alumniOf": { "@type": "CollegeOrUniversity", "name": "Dr. A.P.J. Abdul Kalam Technical University" },
+      "knowsAbout": ["Android Development", "Kotlin", "Jetpack Compose", "Java", "Mobile Engineering"],
+      "sameAs": [
+        "https://github.com/shubham-0707",
+        "https://www.linkedin.com/in/shubham-0707",
+        "https://x.com/shubham0707_11",
+        "https://topmate.io/shubham0707"
+      ]
+    }
+    </script>
+    <script type="module" crossorigin="" src="/assets/index-BGrXlK6e.js"></script>
+    <link rel="stylesheet" crossorigin="" href="/assets/index-CZZsJ-Tf.css">
+  <meta name="description" content="Portfolio of Shubham Singh — SDE at PhonePe, ex-Glance (InMobi). Android Developer, Kotlin Enthusiast, Tech Blogger. Author of The Code Report newsletter with 4,300+ subscribers."><meta property="og:type" content="website"><meta property="og:title" content="Shubham Singh — SDE (Android) @ PhonePe | Android Developer &amp; Tech Blogger"><meta property="og:description" content="Portfolio of Shubham Singh — SDE at PhonePe, ex-Glance (InMobi). Android Developer, Kotlin Enthusiast, Tech Blogger. Author of The Code Report newsletter with 4,300+ subscribers."><meta property="og:url" content="https://shubham-0707.github.io/"><meta property="og:image" content="https://shubham-0707.github.io/favicon-512.png"><meta property="og:site_name" content="Shubham Singh"><meta property="og:locale" content="en_US"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@shubham0707_11"><meta name="twitter:creator" content="@shubham0707_11"><meta name="twitter:title" content="Shubham Singh — SDE (Android) @ PhonePe | Android Developer &amp; Tech Blogger"><meta name="twitter:description" content="Portfolio of Shubham Singh — SDE at PhonePe, ex-Glance (InMobi). Android Developer, Kotlin Enthusiast, Tech Blogger. Author of The Code Report newsletter with 4,300+ subscribers."><meta name="twitter:image" content="https://shubham-0707.github.io/favicon-512.png"><meta name="author" content="Shubham Singh"><meta name="robots" content="index, follow"><meta name="theme-color" content="#0f766e"><link rel="canonical" href="https://shubham-0707.github.io/"><meta name="description" content="After years of wrestling with Dagger's annotation processing, compile-time headaches, and cryptic error messages, I migrated an entire SDK to Koin. Here's why it was the best architectural decision I made at Glance."><meta property="og:type" content="article"><meta property="og:title" content="Why I Mass-Migrated From Dagger to Koin — And Never Looked Back — Shubham Singh"><meta property="og:description" content="After years of wrestling with Dagger's annotation processing, compile-time headaches, and cryptic error messages, I migrated an entire SDK to Koin. Here's why it was the best architectural decision I made at Glance."><meta property="og:url" content="https://shubham-0707.github.io/blog/dagger-to-koin-migration"><meta property="og:image" content="https://shubham-0707.github.io/favicon-512.png"><meta property="og:site_name" content="Shubham Singh"><meta property="og:locale" content="en_US"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@shubham0707_11"><meta name="twitter:creator" content="@shubham0707_11"><meta name="twitter:title" content="Why I Mass-Migrated From Dagger to Koin — And Never Looked Back — Shubham Singh"><meta name="twitter:description" content="After years of wrestling with Dagger's annotation processing, compile-time headaches, and cryptic error messages, I migrated an entire SDK to Koin. Here's why it was the best architectural decision I made at Glance."><meta name="twitter:image" content="https://shubham-0707.github.io/favicon-512.png"><meta property="article:published_time" content="2026-04-20"><meta property="article:tag" content="android"><meta property="article:tag" content="kotlin"><meta property="article:tag" content="architecture"><meta property="article:author" content="Shubham Singh"><meta name="author" content="Shubham Singh"><meta name="robots" content="index, follow"><meta name="theme-color" content="#0f766e"><link rel="canonical" href="https://shubham-0707.github.io/blog/dagger-to-koin-migration"></head>
+  <body>
+    <!-- SPA redirect handler for GitHub Pages -->
+    <script>
+      (function(){
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect);
+        }
+      })();
+      // Handle 404.html redirect query
+      (function(){
+        var l = window.location;
+        if (l.search[1] === '/') {
+          var decoded = l.search.slice(1).split('&').map(function(s){return s.replace(/~and~/g,'&')}).join('?');
+          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+        }
+      })();
+    </script>
+    <div id="root"><canvas class="confetti-canvas" width="800" height="600" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; pointer-events: none; z-index: 0;"></canvas><div class="cursor-glow" style="left: 0px; top: 0px;"></div><nav class="nav"><div class="nav-container"><a class="nav-logo" href="/" data-discover="true"><span class="logo-text">SS</span><span class="logo-dot"></span></a><button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button><ul class="nav-links"><li><a href="#home" class="nav-link">Home</a></li><li><a href="#journey" class="nav-link">Journey</a></li><li><a href="#skills" class="nav-link">Skills</a></li><li><a href="#achievements" class="nav-link">Achievements</a></li><li><a href="#blog" class="nav-link">Blog</a></li><li><a href="#contact" class="nav-link">Contact</a></li></ul><button class="theme-toggle" aria-label="Toggle theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></button></div></nav><main class="blog-post-page"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Why I Mass-Migrated From Dagger to Koin — And Never Looked Back","description":"After years of wrestling with Dagger's annotation processing, compile-time headaches, and cryptic error messages, I migrated an entire SDK to Koin. Here's why it was the best architectural decision I made at Glance.","datePublished":"2026-04-20","author":{"@type":"Person","name":"Shubham Singh","url":"https://shubham-0707.github.io"},"publisher":{"@type":"Person","name":"Shubham Singh","url":"https://shubham-0707.github.io"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://shubham-0707.github.io/blog/dagger-to-koin-migration"},"keywords":"android, kotlin, architecture","wordCount":603,"timeRequired":"8 min read"}</script><div class="particles"><div class="particle" style="left: 84.8143%; height: 3.45134px; width: 3.45134px; background: rgb(15, 118, 110); animation-duration: 8.81819s; animation-delay: 5.20623s; opacity: 0;"></div><div class="particle" style="left: 61.048%; height: 7.27385px; width: 7.27385px; background: rgb(251, 191, 36); animation-duration: 10.9382s; animation-delay: 1.49486s; opacity: 0;"></div><div class="particle" style="left: 37.1682%; height: 7.58387px; width: 7.58387px; background: rgb(245, 158, 11); animation-duration: 12.9489s; animation-delay: 4.59729s; opacity: 0;"></div><div class="particle" style="left: 98.5704%; height: 3.91077px; width: 3.91077px; background: rgb(251, 191, 36); animation-duration: 6.3348s; animation-delay: 0.523328s; opacity: 0;"></div><div class="particle" style="left: 84.2633%; height: 4.34548px; width: 4.34548px; background: rgb(245, 158, 11); animation-duration: 11.1588s; animation-delay: 4.17461s; opacity: 0;"></div><div class="particle" style="left: 71.1374%; height: 6.23211px; width: 6.23211px; background: rgb(20, 184, 166); animation-duration: 12.2319s; animation-delay: 2.40941s; opacity: 0;"></div><div class="particle" style="left: 76.35%; height: 6.03462px; width: 6.03462px; background: rgb(45, 212, 191); animation-duration: 14.6884s; animation-delay: 4.92927s; opacity: 0;"></div><div class="particle" style="left: 25.9296%; height: 6.74726px; width: 6.74726px; background: rgb(251, 191, 36); animation-duration: 13.3066s; animation-delay: 5.26395s; opacity: 0;"></div><div class="particle" style="left: 62.9801%; height: 3.84183px; width: 3.84183px; background: rgb(245, 158, 11); animation-duration: 9.28495s; animation-delay: 0.289179s; opacity: 0;"></div><div class="particle" style="left: 62.1461%; height: 8.27552px; width: 8.27552px; background: rgb(15, 118, 110); animation-duration: 6.41653s; animation-delay: 2.3837s; opacity: 0;"></div></div><nav class="toc" aria-label="Table of Contents"><h4>On This Page</h4><ul><li class=""><a href="#the-breaking-point">The Breaking Point</a></li><li class=""><a href="#why-dagger-became-a-problem">Why Dagger Became a Problem</a></li><li class=""><a href="#enter-koin">Enter Koin</a></li><li class=""><a href="#the-migration-strategy">The Migration Strategy</a></li><li class=""><a href="#the-results">The Results</a></li><li class=""><a href="#lessons-learned">Lessons Learned</a></li><li class=""><a href="#would-i-do-it-again">Would I Do It Again?</a></li></ul></nav><article class="blog-post"><div style="opacity: 1; transform: none;"><a class="back-to-blog" href="/blog" data-discover="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>Back to all posts</a><h1>Why I Mass-Migrated From Dagger to Koin — And Never Looked Back</h1><div class="blog-post-meta"><time datetime="2026-04-20">April 20, 2026</time><span>8 min read</span><a class="blog-tag" href="/blog?tag=android" data-discover="true">android</a><a class="blog-tag" href="/blog?tag=kotlin" data-discover="true">kotlin</a><a class="blog-tag" href="/blog?tag=architecture" data-discover="true">architecture</a></div></div><div class="blog-post-content" style="opacity: 0; transform: translateY(7.65761px);"><h2><span id="the-breaking-point">The Breaking Point</span></h2>
+<p>It was a Tuesday afternoon when our CI build failed for the 47th time that week due to a Dagger-related error. The error message? A cryptic wall of text pointing to an auto-generated class that no human should ever have to read.</p>
+<p>I'd had enough.</p>
+<h2><span id="why-dagger-became-a-problem">Why Dagger Became a Problem</span></h2>
+<p>Don't get me wrong — Dagger is a powerful dependency injection framework. At compile time, it generates all the code needed to wire dependencies together. But with that power comes complexity:</p>
+<ul><li><strong>Annotation processing hell</strong>: Every <code>@Module</code>, <code>@Component</code>, <code>@Provides</code>, and <code>@Inject</code> annotation adds to compile time. In our SDK with 200+ classes, builds were taking 4+ minutes just for Dagger code generation.</li>
+<li><strong>Cryptic error messages</strong>: When something goes wrong (and it will), Dagger throws errors that require a PhD in annotation processing to understand. "Cannot be provided without an @Inject constructor or an @Provides-annotated method" — but WHERE?</li>
+<li><strong>Steep learning curve</strong>: Every new developer joining the team spent their first week just understanding our Dagger graph. Subcomponents, scopes, qualifiers, multibindings — the cognitive overhead was enormous.</li>
+<li><strong>Testing nightmares</strong>: Setting up test modules with Dagger required almost as much boilerplate as the production code itself.</li>
+</ul><h2><span id="enter-koin">Enter Koin</span></h2>
+<p>Koin takes a fundamentally different approach. Instead of compile-time code generation, it uses a lightweight DSL to define dependencies at runtime:</p>
+<pre><code class="language-kotlin">val appModule = module {
+<p>    single { NetworkClient() }</p>
+<p>    single { UserRepository(get()) }</p>
+<p>    factory { LoginViewModel(get()) }</p>
+</code><p><code class="language-kotlin">}</code></p></pre><p></p>
+<p>That's it. No annotations. No generated code. No component interfaces. Just clean, readable Kotlin.</p>
+<h2><span id="the-migration-strategy">The Migration Strategy</span></h2>
+<p>We couldn't migrate everything at once — the SDK had over 150 Dagger-managed dependencies. Here's how we did it in phases:</p>
+<p><strong>Phase 1: Leaf modules first</strong> — We started with modules that had no Dagger dependencies of their own. Analytics, logging, and utility modules were migrated first.</p>
+<p><strong>Phase 2: Bridge layer</strong> — We created a bridge that allowed Koin modules to consume Dagger-provided dependencies and vice versa. This was the trickiest part.</p>
+<p><strong>Phase 3: Core migration</strong> — Once 60% of modules were on Koin, we migrated the core networking and data layers.</p>
+<p><strong>Phase 4: Cleanup</strong> — Removed all Dagger dependencies, deleted generated code, and simplified the build.</p>
+<h2><span id="the-results">The Results</span></h2>
+<p>After completing the migration:</p>
+<ul><li><strong>Build time dropped 40%</strong> — from 4.2 minutes to 2.5 minutes on average</li>
+<li><strong>326+ PRs</strong> were submitted during the migration over 3 months</li>
+<li><strong>Onboarding time</strong> for new devs dropped from ~1 week to ~2 days</li>
+<li><strong>Test setup code</strong> reduced by approximately 60%</li>
+<li><strong>Zero runtime DI crashes</strong> in 6 months post-migration</li>
+</ul><h2><span id="lessons-learned">Lessons Learned</span></h2>
+<ul><li><strong>Don't migrate all at once</strong> — The bridge pattern saved us. We could ship incrementally without breaking anything.</li>
+<li><strong>Write migration tests</strong> — For every module migrated, we wrote integration tests to verify the dependency graph was correct.</li>
+<li><strong>Koin isn't perfect</strong> — Runtime DI means errors show up at runtime, not compile time. We mitigated this with <code>checkModules()</code> in our test suite.</li>
+<li><strong>Team buy-in matters</strong> — I spent two weeks building a proof of concept and presenting it to the team before starting the actual migration.</li>
+</ul><h2><span id="would-i-do-it-again">Would I Do It Again?</span></h2>
+<p>Absolutely. Koin isn't just simpler — it's more Kotlin-idiomatic. It leverages Kotlin's language features instead of fighting against Java's annotation processing system. For our use case (an SDK with clear module boundaries), it was the perfect fit.</p>
+<p>If you're considering the same migration, start small, measure everything, and don't let anyone tell you that "Dagger is the only professional choice." The best tool is the one that lets your team ship faster.</p></div><div class="blog-post-footer" style="opacity: 0;"><div class="blog-post-share"><span>Share this article:</span><div class="share-buttons"><a href="https://twitter.com/intent/tweet?text=Why%20I%20Mass-Migrated%20From%20Dagger%20to%20Koin%20%E2%80%94%20And%20Never%20Looked%20Back&amp;url=https%3A%2F%2Fshubham-0707.github.io%2Fblog%2Fdagger-to-koin-migration" target="_blank" rel="noopener noreferrer" class="share-btn" aria-label="Share on Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg></a><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fshubham-0707.github.io%2Fblog%2Fdagger-to-koin-migration" target="_blank" rel="noopener noreferrer" class="share-btn" aria-label="Share on LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg></a></div></div><a class="btn btn-glass" href="/blog" data-discover="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg><span>All Posts</span></a></div></article></main><footer class="footer"><div class="container"><div class="footer-content"><div class="footer-logo"><span class="gradient-text" style="font-size: 1.5rem; font-weight: 800;">SS</span><p>Shubham Singh</p></div><nav class="footer-links" aria-label="Footer navigation"><a href="#home">Home</a><a href="#journey">Journey</a><a href="#skills">Skills</a><a href="#blog">Blog</a><a href="#contact">Contact</a></nav><div class="footer-bottom"><p>© 2026 Shubham Singh. Crafted with passion.</p></div></div></div></footer></div>
+  
+
+</body></html>

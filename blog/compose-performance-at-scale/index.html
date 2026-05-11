@@ -1,0 +1,137 @@
+<!DOCTYPE html><html lang="en" data-theme="dark"><head>
+    <meta charset="UTF-8">
+    <meta name="google-site-verification" content="92iyzYbkq5d8PQfDdMaVQFcFW-f2w6BpH7g5cXswd_s">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jetpack Compose Performance: Lessons From Serving 500M+ Users — Shubham Singh</title><title>Shubham Singh — SDE (Android) @ PhonePe | Android Developer &amp; Tech Blogger</title><title>Shubham Singh — SDE (Android) @ PhonePe | Android Developer &amp; Tech Blogger</title>
+    <meta name="description" content="Portfolio of Shubham Singh — SDE at PhonePe, ex-Glance (InMobi). Android Developer, Kotlin Enthusiast, Tech Blogger. Author of The Code Report newsletter with 4,300+ subscribers.">
+    <meta name="author" content="Shubham Singh">
+    <meta name="robots" content="index, follow">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+    <meta name="theme-color" content="#0f766e">
+    <meta name="keywords" content="Shubham Singh, Android Developer, PhonePe, Kotlin, Jetpack Compose, SDE, Software Engineer, Tech Blogger, The Code Report, Mobile Development">
+    <link rel="canonical" href="https://shubham-0707.github.io/">
+
+    <!-- Open Graph (for social sharing) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Shubham Singh — SDE (Android) @ PhonePe">
+    <meta property="og:description" content="Portfolio of Shubham Singh — SDE at PhonePe, ex-Glance (InMobi). Android Developer, Kotlin Enthusiast, Tech Blogger.">
+    <meta property="og:url" content="https://shubham-0707.github.io/">
+    <meta property="og:image" content="https://shubham-0707.github.io/favicon-512.png">
+    <meta property="og:site_name" content="Shubham Singh">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@shubham0707_11">
+    <meta name="twitter:creator" content="@shubham0707_11">
+    <meta name="twitter:title" content="Shubham Singh — SDE (Android) @ PhonePe">
+    <meta name="twitter:description" content="Portfolio of Shubham Singh — SDE at PhonePe, ex-Glance (InMobi). Android Developer, Kotlin Enthusiast, Tech Blogger.">
+    <meta name="twitter:image" content="https://shubham-0707.github.io/favicon-512.png">
+
+    <!-- Fonts -->
+    <link rel="preload" as="image" href="/img/profile-pic.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Shubham Singh",
+      "url": "https://shubham-0707.github.io",
+      "image": "https://shubham-0707.github.io/favicon-512.png",
+      "jobTitle": "Software Development Engineer (Android)",
+      "worksFor": { "@type": "Organization", "name": "PhonePe" },
+      "alumniOf": { "@type": "CollegeOrUniversity", "name": "Dr. A.P.J. Abdul Kalam Technical University" },
+      "knowsAbout": ["Android Development", "Kotlin", "Jetpack Compose", "Java", "Mobile Engineering"],
+      "sameAs": [
+        "https://github.com/shubham-0707",
+        "https://www.linkedin.com/in/shubham-0707",
+        "https://x.com/shubham0707_11",
+        "https://topmate.io/shubham0707"
+      ]
+    }
+    </script>
+    <script type="module" crossorigin="" src="/assets/index-BGrXlK6e.js"></script>
+    <link rel="stylesheet" crossorigin="" href="/assets/index-CZZsJ-Tf.css">
+  <meta name="description" content="Portfolio of Shubham Singh — SDE at PhonePe, ex-Glance (InMobi). Android Developer, Kotlin Enthusiast, Tech Blogger. Author of The Code Report newsletter with 4,300+ subscribers."><meta property="og:type" content="website"><meta property="og:title" content="Shubham Singh — SDE (Android) @ PhonePe | Android Developer &amp; Tech Blogger"><meta property="og:description" content="Portfolio of Shubham Singh — SDE at PhonePe, ex-Glance (InMobi). Android Developer, Kotlin Enthusiast, Tech Blogger. Author of The Code Report newsletter with 4,300+ subscribers."><meta property="og:url" content="https://shubham-0707.github.io/"><meta property="og:image" content="https://shubham-0707.github.io/favicon-512.png"><meta property="og:site_name" content="Shubham Singh"><meta property="og:locale" content="en_US"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@shubham0707_11"><meta name="twitter:creator" content="@shubham0707_11"><meta name="twitter:title" content="Shubham Singh — SDE (Android) @ PhonePe | Android Developer &amp; Tech Blogger"><meta name="twitter:description" content="Portfolio of Shubham Singh — SDE at PhonePe, ex-Glance (InMobi). Android Developer, Kotlin Enthusiast, Tech Blogger. Author of The Code Report newsletter with 4,300+ subscribers."><meta name="twitter:image" content="https://shubham-0707.github.io/favicon-512.png"><meta name="author" content="Shubham Singh"><meta name="robots" content="index, follow"><meta name="theme-color" content="#0f766e"><link rel="canonical" href="https://shubham-0707.github.io/"><meta name="description" content="Compose is magical until it isn't. At PhonePe scale, every unnecessary recomposition costs real money. Here's how I profiled, debugged, and fixed jank in production Compose screens."><meta property="og:type" content="article"><meta property="og:title" content="Jetpack Compose Performance: Lessons From Serving 500M+ Users — Shubham Singh"><meta property="og:description" content="Compose is magical until it isn't. At PhonePe scale, every unnecessary recomposition costs real money. Here's how I profiled, debugged, and fixed jank in production Compose screens."><meta property="og:url" content="https://shubham-0707.github.io/blog/compose-performance-at-scale"><meta property="og:image" content="https://shubham-0707.github.io/favicon-512.png"><meta property="og:site_name" content="Shubham Singh"><meta property="og:locale" content="en_US"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@shubham0707_11"><meta name="twitter:creator" content="@shubham0707_11"><meta name="twitter:title" content="Jetpack Compose Performance: Lessons From Serving 500M+ Users — Shubham Singh"><meta name="twitter:description" content="Compose is magical until it isn't. At PhonePe scale, every unnecessary recomposition costs real money. Here's how I profiled, debugged, and fixed jank in production Compose screens."><meta name="twitter:image" content="https://shubham-0707.github.io/favicon-512.png"><meta property="article:published_time" content="2026-04-12"><meta property="article:tag" content="android"><meta property="article:tag" content="compose"><meta property="article:tag" content="performance"><meta property="article:author" content="Shubham Singh"><meta name="author" content="Shubham Singh"><meta name="robots" content="index, follow"><meta name="theme-color" content="#0f766e"><link rel="canonical" href="https://shubham-0707.github.io/blog/compose-performance-at-scale"></head>
+  <body>
+    <!-- SPA redirect handler for GitHub Pages -->
+    <script>
+      (function(){
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect);
+        }
+      })();
+      // Handle 404.html redirect query
+      (function(){
+        var l = window.location;
+        if (l.search[1] === '/') {
+          var decoded = l.search.slice(1).split('&').map(function(s){return s.replace(/~and~/g,'&')}).join('?');
+          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+        }
+      })();
+    </script>
+    <div id="root"><canvas class="confetti-canvas" width="800" height="600" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; pointer-events: none; z-index: 0;"></canvas><div class="cursor-glow" style="left: 0px; top: 0px;"></div><nav class="nav"><div class="nav-container"><a class="nav-logo" href="/" data-discover="true"><span class="logo-text">SS</span><span class="logo-dot"></span></a><button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button><ul class="nav-links"><li><a href="#home" class="nav-link">Home</a></li><li><a href="#journey" class="nav-link">Journey</a></li><li><a href="#skills" class="nav-link">Skills</a></li><li><a href="#achievements" class="nav-link">Achievements</a></li><li><a href="#blog" class="nav-link">Blog</a></li><li><a href="#contact" class="nav-link">Contact</a></li></ul><button class="theme-toggle" aria-label="Toggle theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></button></div></nav><main class="blog-post-page"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Jetpack Compose Performance: Lessons From Serving 500M+ Users","description":"Compose is magical until it isn't. At PhonePe scale, every unnecessary recomposition costs real money. Here's how I profiled, debugged, and fixed jank in production Compose screens.","datePublished":"2026-04-12","author":{"@type":"Person","name":"Shubham Singh","url":"https://shubham-0707.github.io"},"publisher":{"@type":"Person","name":"Shubham Singh","url":"https://shubham-0707.github.io"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://shubham-0707.github.io/blog/compose-performance-at-scale"},"keywords":"android, compose, performance","wordCount":582,"timeRequired":"12 min read"}</script><div class="particles"><div class="particle" style="left: 72.7051%; height: 3.82392px; width: 3.82392px; background: rgb(15, 118, 110); animation-duration: 7.90015s; animation-delay: 0.272822s; opacity: 0;"></div><div class="particle" style="left: 24.2377%; height: 8.93292px; width: 8.93292px; background: rgb(45, 212, 191); animation-duration: 7.70293s; animation-delay: 3.91932s; opacity: 0;"></div><div class="particle" style="left: 17.3999%; height: 8.34007px; width: 8.34007px; background: rgb(45, 212, 191); animation-duration: 11.1909s; animation-delay: 2.42117s; opacity: 0;"></div><div class="particle" style="left: 52.0131%; height: 7.19157px; width: 7.19157px; background: rgb(45, 212, 191); animation-duration: 6.63798s; animation-delay: 5.71895s; opacity: 0;"></div><div class="particle" style="left: 66.4664%; height: 6.63349px; width: 6.63349px; background: rgb(45, 212, 191); animation-duration: 6.95491s; animation-delay: 3.44992s; opacity: 0;"></div><div class="particle" style="left: 72.224%; height: 6.73291px; width: 6.73291px; background: rgb(251, 191, 36); animation-duration: 10.3748s; animation-delay: 3.43732s; opacity: 0;"></div><div class="particle" style="left: 76.8647%; height: 7.85924px; width: 7.85924px; background: rgb(20, 184, 166); animation-duration: 13.7024s; animation-delay: 1.10464s; opacity: 0;"></div><div class="particle" style="left: 24.4696%; height: 6.33818px; width: 6.33818px; background: rgb(45, 212, 191); animation-duration: 12.9581s; animation-delay: 2.49555s; opacity: 0;"></div><div class="particle" style="left: 79.8091%; height: 3.03495px; width: 3.03495px; background: rgb(251, 191, 36); animation-duration: 15.6052s; animation-delay: 3.13424s; opacity: 0;"></div><div class="particle" style="left: 60.482%; height: 8.735px; width: 8.735px; background: rgb(245, 158, 11); animation-duration: 8.22964s; animation-delay: 3.92286s; opacity: 0;"></div></div><nav class="toc" aria-label="Table of Contents"><h4>On This Page</h4><ul><li class=""><a href="#when-smooth-becomes-janky">When Smooth Becomes Janky</a></li><li class=""><a href="#understanding-recomposition">Understanding Recomposition</a></li><li class=""><a href="#the-profiling-setup">The Profiling Setup</a></li><li class=""><a href="#the-top-5-performance-killers-we-found">The Top 5 Performance Killers We Found</a></li><li class="toc-sub"><a href="#1-unstable-data-classes">1. Unstable Data Classes</a></li><li class="toc-sub"><a href="#2-unnecessary-state-reads">2. Unnecessary State Reads</a></li><li class="toc-sub"><a href="#3-heavy-composition-in-lazycolumn">3. Heavy Composition in LazyColumn</a></li><li class="toc-sub"><a href="#4-image-loading-in-composition">4. Image Loading in Composition</a></li><li class="toc-sub"><a href="#5-animations-running-during-scroll">5. Animations Running During Scroll</a></li><li class=""><a href="#the-results">The Results</a></li><li class=""><a href="#key-takeaways">Key Takeaways</a></li></ul></nav><article class="blog-post"><div style="opacity: 1; transform: none;"><a class="back-to-blog" href="/blog" data-discover="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>Back to all posts</a><h1>Jetpack Compose Performance: Lessons From Serving 500M+ Users</h1><div class="blog-post-meta"><time datetime="2026-04-12">April 12, 2026</time><span>12 min read</span><a class="blog-tag" href="/blog?tag=android" data-discover="true">android</a><a class="blog-tag" href="/blog?tag=compose" data-discover="true">compose</a><a class="blog-tag" href="/blog?tag=performance" data-discover="true">performance</a></div></div><div class="blog-post-content" style="opacity: 0; transform: translateY(6.8732px);"><h2><span id="when-smooth-becomes-janky">When Smooth Becomes Janky</span></h2>
+<p>At PhonePe, we serve over 500 million users. When we started adopting Jetpack Compose for new screens, everything looked beautiful in development. But the moment we pushed to production and saw real device telemetry, the picture changed.</p>
+<p>Frames were being dropped. Scroll jank appeared on mid-range devices. And our ANR rate ticked up by 0.3% — which at our scale means millions of bad experiences.</p>
+<h2><span id="understanding-recomposition">Understanding Recomposition</span></h2>
+<p>The first thing I learned: <strong>recomposition is not free</strong>. Compose's mental model of "just describe your UI and let the framework figure it out" works great — until you realize the framework is re-running your composable functions far more often than you think.</p>
+<pre><code class="language-kotlin">// BAD: This creates a new lambda on every recomposition
+<p>@Composable</p>
+<p>fun UserCard(user: User) {</p>
+<p>    Button(onClick = { viewModel.onUserClick(user.id) }) {</p>
+<p>        Text(user.name)</p>
+<p>    }</p>
+<p>}</p>
+<p>// GOOD: Stabilize the lambda</p>
+<p>@Composable</p>
+<p>fun UserCard(user: User, onUserClick: (String) -&gt; Unit) {</p>
+<p>    Button(onClick = { onUserClick(user.id) }) {</p>
+<p>        Text(user.name)</p>
+<p>    }</p>
+</code><p><code class="language-kotlin">}</code></p></pre><p></p>
+<h2><span id="the-profiling-setup">The Profiling Setup</span></h2>
+<p>Before fixing anything, we needed to measure. Here's our profiling toolkit:</p>
+<ul><li><strong>Compose Compiler Reports</strong> — Generated with <code>-P plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=...</code>. These reports show which composables are skippable, restartable, and which parameters are stable.</li>
+<li><strong>Layout Inspector</strong> — Android Studio's layout inspector shows recomposition counts in real-time. Any composable recomposing more than its parent is a red flag.</li>
+<li><strong>Custom trace sections</strong> — We added <code>trace("SectionName")</code> blocks around critical composables to see them in Perfetto traces.</li>
+<li><strong>Production metrics</strong> — Frame timing histograms, jank rate by screen, and recomposition counts shipped via analytics.</li>
+</ul><h2><span id="the-top-5-performance-killers-we-found">The Top 5 Performance Killers We Found</span></h2>
+<h3><span id="1-unstable-data-classes">1. Unstable Data Classes</span></h3>
+<p>Compose determines whether to skip recomposition by checking parameter stability. If your data class contains a <code>List</code>, <code>Map</code>, or any mutable type, the entire composable becomes non-skippable.</p>
+<p><strong>Fix</strong>: Use <code>@Immutable</code> annotation or <code>kotlinx.collections.immutable</code>.</p>
+<h3><span id="2-unnecessary-state-reads">2. Unnecessary State Reads</span></h3>
+<p>Reading state in a parent composable causes the entire subtree to recompose. We found screens where a scroll position state was being read at the top level, causing the entire screen to recompose on every frame.</p>
+<p><strong>Fix</strong>: Push state reads as deep into the tree as possible. Use <code>derivedStateOf</code> for computed values.</p>
+<h3><span id="3-heavy-composition-in-lazycolumn">3. Heavy Composition in LazyColumn</span></h3>
+<p>Our transaction list had complex items with multiple nested composables. When scrolling fast, composition couldn't keep up.</p>
+<p><strong>Fix</strong>: Pre-compute display strings outside of composition. Use <code>key()</code> properly. Extract heavy computations into <code>remember</code> blocks.</p>
+<h3><span id="4-image-loading-in-composition">4. Image Loading in Composition</span></h3>
+<p>We were triggering image loads inside <code>@Composable</code> functions, causing re-loads on recomposition.</p>
+<p><strong>Fix</strong>: Use Coil's <code>AsyncImage</code> with proper caching. Preload images for lists.</p>
+<h3><span id="5-animations-running-during-scroll">5. Animations Running During Scroll</span></h3>
+<p>Multiple concurrent animations while scrolling crushed frame budgets on low-end devices.</p>
+<p><strong>Fix</strong>: Disable or simplify animations when <code>LazyListState.isScrollInProgress</code> is true.</p>
+<h2><span id="the-results">The Results</span></h2>
+<p>After 6 weeks of optimization:</p>
+<ul><li><strong>Jank rate dropped 73%</strong> on our main transaction screen</li>
+<li><strong>P50 frame time</strong> went from 12ms to 7ms</li>
+<li><strong>ANR rate</strong> returned to pre-Compose levels</li>
+<li><strong>Recomposition count</strong> reduced by ~60% across all Compose screens</li>
+</ul><h2><span id="key-takeaways">Key Takeaways</span></h2>
+<ul><li><strong>Profile first, optimize second</strong> — Don't guess where the problem is. Compose compiler reports are your best friend.</li>
+<li><strong>Stability is everything</strong> — Make all your UI model classes <code>@Immutable</code> or <code>@Stable</code>.</li>
+<li><strong>Test on real devices</strong> — Pixel 7 doesn't jank. The ₹8,000 phone your users actually have does.</li>
+<li><strong>Compose is still worth it</strong> — Despite these challenges, our development velocity increased 2x after adopting Compose. You just need to understand the performance model.</li></ul></div><div class="blog-post-footer" style="opacity: 0;"><div class="blog-post-share"><span>Share this article:</span><div class="share-buttons"><a href="https://twitter.com/intent/tweet?text=Jetpack%20Compose%20Performance%3A%20Lessons%20From%20Serving%20500M%2B%20Users&amp;url=https%3A%2F%2Fshubham-0707.github.io%2Fblog%2Fcompose-performance-at-scale" target="_blank" rel="noopener noreferrer" class="share-btn" aria-label="Share on Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg></a><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fshubham-0707.github.io%2Fblog%2Fcompose-performance-at-scale" target="_blank" rel="noopener noreferrer" class="share-btn" aria-label="Share on LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg></a></div></div><a class="btn btn-glass" href="/blog" data-discover="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg><span>All Posts</span></a></div></article></main><footer class="footer"><div class="container"><div class="footer-content"><div class="footer-logo"><span class="gradient-text" style="font-size: 1.5rem; font-weight: 800;">SS</span><p>Shubham Singh</p></div><nav class="footer-links" aria-label="Footer navigation"><a href="#home">Home</a><a href="#journey">Journey</a><a href="#skills">Skills</a><a href="#blog">Blog</a><a href="#contact">Contact</a></nav><div class="footer-bottom"><p>© 2026 Shubham Singh. Crafted with passion.</p></div></div></div></footer></div>
+  
+
+</body></html>

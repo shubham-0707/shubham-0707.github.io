@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="en" data-theme="dark"><head>
+    <meta charset="UTF-8">
+    <meta name="google-site-verification" content="92iyzYbkq5d8PQfDdMaVQFcFW-f2w6BpH7g5cXswd_s">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How I Reduced Login Failures by 60% — A Deep Dive Into Auth UX — Shubham Singh</title><title>Shubham Singh — SDE (Android) @ PhonePe | Android Developer &amp; Tech Blogger</title><title>Shubham Singh — SDE (Android) @ PhonePe | Android Developer &amp; Tech Blogger</title>
+    <meta name="description" content="Portfolio of Shubham Singh — SDE at PhonePe, ex-Glance (InMobi). Android Developer, Kotlin Enthusiast, Tech Blogger. Author of The Code Report newsletter with 4,300+ subscribers.">
+    <meta name="author" content="Shubham Singh">
+    <meta name="robots" content="index, follow">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+    <meta name="theme-color" content="#0f766e">
+    <meta name="keywords" content="Shubham Singh, Android Developer, PhonePe, Kotlin, Jetpack Compose, SDE, Software Engineer, Tech Blogger, The Code Report, Mobile Development">
+    <link rel="canonical" href="https://shubham-0707.github.io/">
+
+    <!-- Open Graph (for social sharing) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Shubham Singh — SDE (Android) @ PhonePe">
+    <meta property="og:description" content="Portfolio of Shubham Singh — SDE at PhonePe, ex-Glance (InMobi). Android Developer, Kotlin Enthusiast, Tech Blogger.">
+    <meta property="og:url" content="https://shubham-0707.github.io/">
+    <meta property="og:image" content="https://shubham-0707.github.io/favicon-512.png">
+    <meta property="og:site_name" content="Shubham Singh">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@shubham0707_11">
+    <meta name="twitter:creator" content="@shubham0707_11">
+    <meta name="twitter:title" content="Shubham Singh — SDE (Android) @ PhonePe">
+    <meta name="twitter:description" content="Portfolio of Shubham Singh — SDE at PhonePe, ex-Glance (InMobi). Android Developer, Kotlin Enthusiast, Tech Blogger.">
+    <meta name="twitter:image" content="https://shubham-0707.github.io/favicon-512.png">
+
+    <!-- Fonts -->
+    <link rel="preload" as="image" href="/img/profile-pic.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Shubham Singh",
+      "url": "https://shubham-0707.github.io",
+      "image": "https://shubham-0707.github.io/favicon-512.png",
+      "jobTitle": "Software Development Engineer (Android)",
+      "worksFor": { "@type": "Organization", "name": "PhonePe" },
+      "alumniOf": { "@type": "CollegeOrUniversity", "name": "Dr. A.P.J. Abdul Kalam Technical University" },
+      "knowsAbout": ["Android Development", "Kotlin", "Jetpack Compose", "Java", "Mobile Engineering"],
+      "sameAs": [
+        "https://github.com/shubham-0707",
+        "https://www.linkedin.com/in/shubham-0707",
+        "https://x.com/shubham0707_11",
+        "https://topmate.io/shubham0707"
+      ]
+    }
+    </script>
+    <script type="module" crossorigin="" src="/assets/index-BGrXlK6e.js"></script>
+    <link rel="stylesheet" crossorigin="" href="/assets/index-CZZsJ-Tf.css">
+  <meta name="description" content="Portfolio of Shubham Singh — SDE at PhonePe, ex-Glance (InMobi). Android Developer, Kotlin Enthusiast, Tech Blogger. Author of The Code Report newsletter with 4,300+ subscribers."><meta property="og:type" content="website"><meta property="og:title" content="Shubham Singh — SDE (Android) @ PhonePe | Android Developer &amp; Tech Blogger"><meta property="og:description" content="Portfolio of Shubham Singh — SDE at PhonePe, ex-Glance (InMobi). Android Developer, Kotlin Enthusiast, Tech Blogger. Author of The Code Report newsletter with 4,300+ subscribers."><meta property="og:url" content="https://shubham-0707.github.io/"><meta property="og:image" content="https://shubham-0707.github.io/favicon-512.png"><meta property="og:site_name" content="Shubham Singh"><meta property="og:locale" content="en_US"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@shubham0707_11"><meta name="twitter:creator" content="@shubham0707_11"><meta name="twitter:title" content="Shubham Singh — SDE (Android) @ PhonePe | Android Developer &amp; Tech Blogger"><meta name="twitter:description" content="Portfolio of Shubham Singh — SDE at PhonePe, ex-Glance (InMobi). Android Developer, Kotlin Enthusiast, Tech Blogger. Author of The Code Report newsletter with 4,300+ subscribers."><meta name="twitter:image" content="https://shubham-0707.github.io/favicon-512.png"><meta name="author" content="Shubham Singh"><meta name="robots" content="index, follow"><meta name="theme-color" content="#0f766e"><link rel="canonical" href="https://shubham-0707.github.io/"><meta name="description" content="Login is the most important screen in your app, and most teams get it wrong. Here's how I redesigned PhonePe's login flow to reduce failures from 15% to 6%."><meta property="og:type" content="article"><meta property="og:title" content="How I Reduced Login Failures by 60% — A Deep Dive Into Auth UX — Shubham Singh"><meta property="og:description" content="Login is the most important screen in your app, and most teams get it wrong. Here's how I redesigned PhonePe's login flow to reduce failures from 15% to 6%."><meta property="og:url" content="https://shubham-0707.github.io/blog/reducing-login-failures"><meta property="og:image" content="https://shubham-0707.github.io/favicon-512.png"><meta property="og:site_name" content="Shubham Singh"><meta property="og:locale" content="en_US"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@shubham0707_11"><meta name="twitter:creator" content="@shubham0707_11"><meta name="twitter:title" content="How I Reduced Login Failures by 60% — A Deep Dive Into Auth UX — Shubham Singh"><meta name="twitter:description" content="Login is the most important screen in your app, and most teams get it wrong. Here's how I redesigned PhonePe's login flow to reduce failures from 15% to 6%."><meta name="twitter:image" content="https://shubham-0707.github.io/favicon-512.png"><meta property="article:published_time" content="2026-01-22"><meta property="article:tag" content="android"><meta property="article:tag" content="performance"><meta property="article:tag" content="ux"><meta property="article:author" content="Shubham Singh"><meta name="author" content="Shubham Singh"><meta name="robots" content="index, follow"><meta name="theme-color" content="#0f766e"><link rel="canonical" href="https://shubham-0707.github.io/blog/reducing-login-failures"></head>
+  <body>
+    <!-- SPA redirect handler for GitHub Pages -->
+    <script>
+      (function(){
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect);
+        }
+      })();
+      // Handle 404.html redirect query
+      (function(){
+        var l = window.location;
+        if (l.search[1] === '/') {
+          var decoded = l.search.slice(1).split('&').map(function(s){return s.replace(/~and~/g,'&')}).join('?');
+          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+        }
+      })();
+    </script>
+    <div id="root"><canvas class="confetti-canvas" width="800" height="600" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; pointer-events: none; z-index: 0;"></canvas><div class="cursor-glow" style="left: 0px; top: 0px;"></div><nav class="nav"><div class="nav-container"><a class="nav-logo" href="/" data-discover="true"><span class="logo-text">SS</span><span class="logo-dot"></span></a><button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button><ul class="nav-links"><li><a href="#home" class="nav-link">Home</a></li><li><a href="#journey" class="nav-link">Journey</a></li><li><a href="#skills" class="nav-link">Skills</a></li><li><a href="#achievements" class="nav-link">Achievements</a></li><li><a href="#blog" class="nav-link">Blog</a></li><li><a href="#contact" class="nav-link">Contact</a></li></ul><button class="theme-toggle" aria-label="Toggle theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></button></div></nav><main class="blog-post-page"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"How I Reduced Login Failures by 60% — A Deep Dive Into Auth UX","description":"Login is the most important screen in your app, and most teams get it wrong. Here's how I redesigned PhonePe's login flow to reduce failures from 15% to 6%.","datePublished":"2026-01-22","author":{"@type":"Person","name":"Shubham Singh","url":"https://shubham-0707.github.io"},"publisher":{"@type":"Person","name":"Shubham Singh","url":"https://shubham-0707.github.io"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://shubham-0707.github.io/blog/reducing-login-failures"},"keywords":"android, performance, ux","wordCount":643,"timeRequired":"8 min read"}</script><div class="particles"><div class="particle" style="left: 66.521%; height: 6.1989px; width: 6.1989px; background: rgb(20, 184, 166); animation-duration: 11.7971s; animation-delay: 4.97557s; opacity: 0;"></div><div class="particle" style="left: 27.5227%; height: 8.47953px; width: 8.47953px; background: rgb(45, 212, 191); animation-duration: 15.6195s; animation-delay: 1.69976s; opacity: 0;"></div><div class="particle" style="left: 26.5304%; height: 6.21242px; width: 6.21242px; background: rgb(251, 191, 36); animation-duration: 15.4763s; animation-delay: 4.84561s; opacity: 0;"></div><div class="particle" style="left: 10.3199%; height: 7.25381px; width: 7.25381px; background: rgb(45, 212, 191); animation-duration: 9.39813s; animation-delay: 3.31668s; opacity: 0;"></div><div class="particle" style="left: 36.1513%; height: 6.26403px; width: 6.26403px; background: rgb(15, 118, 110); animation-duration: 15.0467s; animation-delay: 3.9857s; opacity: 0;"></div><div class="particle" style="left: 33.1904%; height: 3.66145px; width: 3.66145px; background: rgb(251, 191, 36); animation-duration: 12.5683s; animation-delay: 0.819204s; opacity: 0;"></div><div class="particle" style="left: 34.2879%; height: 5.48125px; width: 5.48125px; background: rgb(20, 184, 166); animation-duration: 10.1358s; animation-delay: 0.573951s; opacity: 0;"></div><div class="particle" style="left: 86.1103%; height: 4.17429px; width: 4.17429px; background: rgb(251, 191, 36); animation-duration: 14.481s; animation-delay: 3.33329s; opacity: 0;"></div><div class="particle" style="left: 33.8511%; height: 6.00466px; width: 6.00466px; background: rgb(251, 191, 36); animation-duration: 6.17813s; animation-delay: 3.32247s; opacity: 0;"></div><div class="particle" style="left: 38.7949%; height: 3.6615px; width: 3.6615px; background: rgb(20, 184, 166); animation-duration: 7.1338s; animation-delay: 3.35731s; opacity: 0;"></div></div><nav class="toc" aria-label="Table of Contents"><h4>On This Page</h4><ul><li class=""><a href="#the-problem">The Problem</a></li><li class=""><a href="#understanding-the-failures">Understanding the Failures</a></li><li class=""><a href="#the-solutions">The Solutions</a></li><li class="toc-sub"><a href="#fix-1-auto-read-otp-with-sms-retriever-api">Fix 1: Auto-read OTP with SMS Retriever API</a></li><li class="toc-sub"><a href="#fix-2-graceful-retry-with-exponential-backoff">Fix 2: Graceful Retry with Exponential Backoff</a></li><li class="toc-sub"><a href="#fix-3-otp-timer-extension">Fix 3: OTP Timer Extension</a></li><li class="toc-sub"><a href="#fix-4-phone-number-validation">Fix 4: Phone Number Validation</a></li><li class="toc-sub"><a href="#fix-5-crash-free-login-flow">Fix 5: Crash-Free Login Flow</a></li><li class=""><a href="#the-design-changes">The Design Changes</a></li><li class=""><a href="#the-results">The Results</a></li><li class=""><a href="#key-lessons">Key Lessons</a></li></ul></nav><article class="blog-post"><div style="opacity: 1; transform: none;"><a class="back-to-blog" href="/blog" data-discover="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>Back to all posts</a><h1>How I Reduced Login Failures by 60% — A Deep Dive Into Auth UX</h1><div class="blog-post-meta"><time datetime="2026-01-22">January 22, 2026</time><span>8 min read</span><a class="blog-tag" href="/blog?tag=android" data-discover="true">android</a><a class="blog-tag" href="/blog?tag=performance" data-discover="true">performance</a><a class="blog-tag" href="/blog?tag=ux" data-discover="true">ux</a></div></div><div class="blog-post-content" style="opacity: 0; transform: translateY(8.20755px);"><h2><span id="the-problem">The Problem</span></h2>
+<p>PhonePe's login screen had a 15% failure rate. That means roughly 1 in 7 users couldn't log in on their first attempt. At 500M+ users, that's tens of millions of frustrated people.</p>
+<p>I was tasked with fixing it. Here's the complete journey.</p>
+<h2><span id="understanding-the-failures">Understanding the Failures</span></h2>
+<p>First, I instrumented every possible failure point:</p>
+<ul><li><strong>OTP never received</strong> (38% of failures) — Network issues, SMS gateway delays, or incorrect phone numbers</li>
+<li><strong>OTP expired</strong> (24% of failures) — Users took too long to enter the code</li>
+<li><strong>Wrong OTP entered</strong> (19% of failures) — Typos, confusion with other OTPs</li>
+<li><strong>App crash during login</strong> (11% of failures) — Edge cases in the auth flow</li>
+<li><strong>Network timeout</strong> (8% of failures) — Slow or unstable connections</li>
+</ul><h2><span id="the-solutions">The Solutions</span></h2>
+<h3><span id="fix-1-auto-read-otp-with-sms-retriever-api">Fix 1: Auto-read OTP with SMS Retriever API</span></h3>
+<p>The biggest win. Instead of asking users to manually type a 6-digit OTP, we implemented the SMS Retriever API to auto-read and auto-fill.</p>
+<pre><code class="language-kotlin">val client = SmsRetriever.getClient(context)
+<p>val task = client.startSmsRetriever()</p>
+<p>task.addOnSuccessListener {</p>
+<p>    // Register broadcast receiver for incoming SMS</p>
+<p>    registerReceiver(smsReceiver, intentFilter)</p>
+</code><p><code class="language-kotlin">}</code></p></pre><p></p>
+<p><strong>Impact</strong>: OTP-related failures dropped by 45%.</p>
+<h3><span id="fix-2-graceful-retry-with-exponential-backoff">Fix 2: Graceful Retry with Exponential Backoff</span></h3>
+<p>Instead of showing a generic "Something went wrong" error, we implemented smart retry:</p>
+<ul><li>First failure: Auto-retry silently after 2 seconds</li>
+<li>Second failure: Show "Retrying..." with a spinner</li>
+<li>Third failure: Offer alternatives (call-based OTP, WhatsApp OTP)</li>
+</ul><p><strong>Impact</strong>: Network timeout failures dropped by 60%.</p>
+<h3><span id="fix-3-otp-timer-extension">Fix 3: OTP Timer Extension</span></h3>
+<p>Our OTP expired after 30 seconds. User research showed that 35% of users on low-end devices needed more than 30 seconds (app switching to SMS app and back was slow). We extended to 60 seconds and added a visible countdown.</p>
+<p><strong>Impact</strong>: OTP expiry failures dropped by 50%.</p>
+<h3><span id="fix-4-phone-number-validation">Fix 4: Phone Number Validation</span></h3>
+<p>We added real-time validation as the user types:</p>
+<ul><li>Format check (10 digits, valid prefix)</li>
+<li>Carrier detection (show carrier name for confirmation)</li>
+<li>Previously used numbers (auto-suggest from account history)</li>
+</ul><p><strong>Impact</strong>: Wrong number submissions dropped by 70%.</p>
+<h3><span id="fix-5-crash-free-login-flow">Fix 5: Crash-Free Login Flow</span></h3>
+<p>We found 8 edge cases causing crashes:</p>
+<ul><li>Config change during OTP verification</li>
+<li>Back press during API call</li>
+<li>Dual SIM number picker dismissal</li>
+<li>Low memory during biometric prompt</li>
+</ul><p>Each was fixed with proper lifecycle handling and state restoration.</p>
+<p><strong>Impact</strong>: Auth-related crashes went to zero.</p>
+<h2><span id="the-design-changes">The Design Changes</span></h2>
+<p>Beyond technical fixes, we redesigned the UX:</p>
+<ul><li><strong>Single-screen flow</strong> — Previously, phone number and OTP were on separate screens. We combined them with a smooth transition. Fewer navigation steps = fewer drop-offs.</li>
+<li><strong>Trust signals</strong> — Added PhonePe's security badge, "256-bit encrypted" text, and RBI compliance notice. Users are entering sensitive info — they need reassurance.</li>
+<li><strong>Error messages that help</strong> — Changed "Invalid OTP" to "That code didn't match. Check your SMS and try again." Changed "Network error" to "Slow connection. We'll keep trying."</li>
+<li><strong>Loading states</strong> — Replaced blank screens during API calls with skeleton loaders and progress indicators. Users who see progress are 3x more patient.</li>
+</ul><h2><span id="the-results">The Results</span></h2>
+<p>After 6 weeks of incremental rollout:</p>
+<ul><li><strong>Login failure rate</strong>: 15% → 6% (60% reduction)</li>
+<li><strong>Average login time</strong>: 28 seconds → 12 seconds</li>
+<li><strong>Support tickets for login issues</strong>: -73%</li>
+<li><strong>User satisfaction (login NPS)</strong>: +22 points</li>
+</ul><h2><span id="key-lessons">Key Lessons</span></h2>
+<ul><li><strong>Instrument everything</strong> — You can't fix what you can't measure. Every failure mode needs a distinct analytics event.</li>
+<li><strong>Don't blame the user</strong> — "Wrong OTP" is a UX failure, not a user failure. Make it harder to fail.</li>
+<li><strong>Test on real conditions</strong> — Our lab testing missed issues that only appeared on 2G networks with 512MB RAM devices.</li>
+<li><strong>Small changes, big impact</strong> — The OTP timer change was a one-line code change that eliminated 12% of all login failures.</li>
+</ul><p>Login is your app's front door. Make it effortless.</p></div><div class="blog-post-footer" style="opacity: 0;"><div class="blog-post-share"><span>Share this article:</span><div class="share-buttons"><a href="https://twitter.com/intent/tweet?text=How%20I%20Reduced%20Login%20Failures%20by%2060%25%20%E2%80%94%20A%20Deep%20Dive%20Into%20Auth%20UX&amp;url=https%3A%2F%2Fshubham-0707.github.io%2Fblog%2Freducing-login-failures" target="_blank" rel="noopener noreferrer" class="share-btn" aria-label="Share on Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg></a><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fshubham-0707.github.io%2Fblog%2Freducing-login-failures" target="_blank" rel="noopener noreferrer" class="share-btn" aria-label="Share on LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg></a></div></div><a class="btn btn-glass" href="/blog" data-discover="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg><span>All Posts</span></a></div></article></main><footer class="footer"><div class="container"><div class="footer-content"><div class="footer-logo"><span class="gradient-text" style="font-size: 1.5rem; font-weight: 800;">SS</span><p>Shubham Singh</p></div><nav class="footer-links" aria-label="Footer navigation"><a href="#home">Home</a><a href="#journey">Journey</a><a href="#skills">Skills</a><a href="#blog">Blog</a><a href="#contact">Contact</a></nav><div class="footer-bottom"><p>© 2026 Shubham Singh. Crafted with passion.</p></div></div></div></footer></div>
+  
+
+</body></html>
